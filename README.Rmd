@@ -33,23 +33,32 @@ devtools::install_github("aaronameek/mileg")
 
 ## Setup & General Use
 
-In general, the dual goals of package-ifying this project was to make it both straightforward and flexible -- that is, every `R` user knows *how* to use a package, but they all have different use *cases*. For example, a user could run this brief chunk and end up with a fully-functional local database with 20 years worth of legislative data within a few minutes:
+In general, the dual goal of package-ifying this project was to make it both straightforward and flexible -- that is, every `R` user knows *how* to use a package, but they all have different use *cases*. In this vein, the package ships with up-to-date data that is compiled on the back-end (read: outside of the package) to eliminate the need for users to gather it themselves, while the functions draw on this included data for the package's core operations. Of course, in the event that a user needs to maintain a fixed dataset (such as for academic research), it is wise to save a timestamped copy of the data locally, import the copied data in the initialization stage of your workflow, and then use the package's functions accordingly.
 
 ```{r setup_example, eval=FALSE, message=FALSE}
-## Load main package (and friends)
+## Load main package
 library(mileg)
-library(readr)
-library(here)
 
-## Fetch bill data
-fetch_bill_data()
+## View head of built-in legislation data
+head(mileg::legislation)
 
-## Compile into database
-bill_db_main(
-  db_path = here("legislation.db"),
-  previous_bills_df = read_csv("data/clean/clean_previous_bills.csv"),
-  current_bills_df = read_csv("data/clean/clean_current_bills.csv"))
-)
+## Export fixed version of legislation data...
+write.csv(mileg::legislation, "my_legislation.csv")
+
+## ... and import the fixed version later
+my_legislation <- read.csv("my_legislation.csv")
 ```
 
-*This package is in active development. Apologies for any bugs, deficiencies, or wild updates as I work out the kinks!*
+## Data
+
+The following datasets come included with the package:
+
+- `legislation`: All legislative bills, resolutions, concurrent resolutions, and joint resolutions from both chambers of the Michigan Legislature (House of Representatives and Senate) starting in the 2005-2006 legislative session.
+<!--
+- `actions`: AAA
+- `legislators`: AAA
+- `sponsors`: AAA
+- `committees`: AAA
+-->
+
+*NOTE: This package is in active development. Apologies for any bugs, deficiencies, or wild updates as I work out the kinks!*
