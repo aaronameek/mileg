@@ -65,15 +65,26 @@ my_legislation <- read.csv("my_legislation.csv")
 
 The following datasets come included with the package:
 
-- `legislation`: All legislative bills, resolutions, concurrent
-  resolutions, and joint resolutions from both chambers of the Michigan
-  Legislature (House of Representatives and Senate) starting in the
-  2005-2006 legislative session. <!--
-  - `actions`: AAA
-  - `legislators`: AAA
-  - `sponsors`: AAA
-  - `committees`: AAA
-  -->
+- `legislation`: Table containing all legislative bills, resolutions,
+  concurrent resolutions, and joint resolutions from both chambers of
+  the Michigan Legislature (House of Representatives and Senate)
+  starting in the 2005-2006 legislative session.
+- `actions`: Table containing all actions taken on legislation in both
+  chambers of the legislature and governor (e.g., vetoes). Can be used
+  for survival analysis and other time-driven tests.
+- `sponsors`: Table containing the standard document ID and information
+  about each legislator who sponsored the legislation (name, district,
+  and a TRUE/FALSE indicator of whether they are the primary sponsor).
+  Can be converted into an edge list to facilitate cosponsorship
+  analysis.
+- `committees`: Table with one row per legislative document ID
+  containing the House and Senate committees to which the bill was
+  referred and the date. Good for general information or being combined
+  with the `legislation` or `actions` tables.
 
-*NOTE: This package is in active development. Apologies for any bugs,
-deficiencies, or wild updates as I work out the kinks!*
+The data are easily join-able on the `doc_id` variable, which is
+essentially a “primary key” in SQL/database terms.
+
+## Package Functions
+
+*In development – stay tuned!*
