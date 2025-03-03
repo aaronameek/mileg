@@ -33,7 +33,7 @@ devtools::install_github("aaronameek/mileg")
 
 ## Setup & General Use
 
-In general, the dual goal of package-ifying this project was to make it both straightforward and flexible -- that is, every `R` user knows *how* to use a package, but they all have different use *cases*. In this vein, the package ships with up-to-date data that is compiled on the back-end (read: outside of the package) to eliminate the need for users to gather it themselves, while the functions draw on this included data for the package's core operations. Of course, in the event that a user needs to maintain a fixed dataset (such as for academic research), it is wise to save a timestamped copy of the data locally, import the copied data in the initialization stage of your workflow, and then use the package's functions accordingly.
+In general, the dual goal of package-ifying this project was to make it both straightforward and flexible -- that is, every `R` user knows *how* to use a package, but they all have different use *cases*. In this vein, the package ships with both "built-in" data (as .rda files) as well as the script that I use to compile it locally, both of which will provide you with data up to the legislative session immediately preceding the current one. (Very) early versions of mileg attempted to keep up with current session data by bifurcating the session data, but I quickly decided to scrap that in favor of a more straightforward and parsimonious system that only includes past legislative sessions. Of course, in the even that a user needs to maintain a *fixed* dataset (such as for academic research), it is wise to save a versioned copy of your desired data locally, import that copied data in the initialization stage of your workflow, and then use the package's other functions accordingly.
 
 ```{r setup_example, eval=FALSE, message=FALSE}
 ## Load main package
@@ -43,15 +43,15 @@ library(mileg)
 head(mileg::legislation)
 
 ## Export fixed version of legislation data...
-write.csv(mileg::legislation, "my_legislation.csv")
+write.csv(mileg::legislation, "legislation_YYYY-MM-DD.csv")
 
 ## ... and import the fixed version later
-my_legislation <- read.csv("my_legislation.csv")
+my_project_legislation <- read.csv("legislation_YYYY-MM-DD.csv"")
 ```
 
 ## Data
 
-The following datasets come included with the package:
+The following datasets are compiled using the mileg_data.R script. They come included with the package as both RData and CSV files:
 
 - `legislation`: Table containing all legislative bills, resolutions, concurrent resolutions, and joint resolutions from both chambers of the Michigan Legislature (House of Representatives and Senate) starting in the 2005-2006 legislative session.
 - `actions`: Table containing all actions taken on legislation in both chambers of the legislature and governor (e.g., vetoes). Can be used for survival analysis and other time-driven tests.
